@@ -5,6 +5,6 @@ from main_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('send-email/', views.sender_view),
-    path('', views.create_email_view, name='create')
+    path('', views.sender_view),
+    path('create/', views.create_email_view, name='create')
 ]

@@ -7,10 +7,16 @@ from django.contrib import messages
 
 
 def sender_view(request):
-    try:
+    if request.method == 'POST':
+        subject = request.POST.get('email-subject')
+        body = request.POST.get('email-body')
+        receiver = request.POST.get('email-receiver')
+        
+        # in future, store these details in DB
+
         email = EmailMessage(
-            'Sent from Django App',
-            'Nadhan imekubali',
+            subject,
+            body,
             settings.EMAIL_HOST_USER,
             ['2001stany@gmail.com', 'fredy.masika@gmail.com'],
         )
