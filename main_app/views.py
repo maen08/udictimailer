@@ -18,14 +18,14 @@ def sender_view(request):
             subject,
             body,
             settings.EMAIL_HOST_USER,
-            ['2001stany@gmail.com', 'fredy.masika@gmail.com'],
+            receiver.split(),
         )
         email.fail_silently = False
         email.send()
         messages.success(request, 'Email sent Successfully')
         print('EMAIL GOT SENT')
 
-    except:
+    else:
         print('NOT SENT')
   
     return render(request, template_name='create_email.html')
