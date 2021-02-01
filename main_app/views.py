@@ -17,6 +17,8 @@ from rest_framework.exceptions import AuthenticationFailed
 
 
 
+
+
 def sender_view(request):
     if request.method == 'POST':
         subject = request.POST.get('email-subject')
@@ -80,31 +82,31 @@ def register(request):
 
 # works fine
 
-@csrf_exempt
-@api_view(['POST'])
-def signin(request):
-    username = request.POST['username']
-    password = request.POST['password']
+# @csrf_exempt
+# @api_view(['POST'])
+# def signin(request):
+#     username = request.POST['username']
+#     password = request.POST['password']
 
 
-    if not User.objects.filter(username=username).exists():
-        raise AuthenticationFailed('Username does not exist, please register')
+#     if not User.objects.filter(username=username).exists():
+#         raise AuthenticationFailed('Username does not exist, please register')
     
-    # try:
-    user = authenticate(request, username=username, password=password)
-    login(request, user)
-        # print('GOOD LOGGER')
-    token = str(Token.objects.get(user=user).key) 
-        # print(token)
+#     # try:
+#     user = authenticate(request, username=username, password=password)
+#     login(request, user)
+#         # print('GOOD LOGGER')
+#     token = str(Token.objects.get(user=user).key) 
+#         # print(token)
 
-    # except Exception:
-    #     raise AuthenticationFailed('Authentication Failed!')        
+#     # except Exception:
+#     #     raise AuthenticationFailed('Authentication Failed!')        
  
-    data = {
-        'message': 'logged in',
-        'token': token,
-    }
-    return JsonResponse(data, status=status.HTTP_202_ACCEPTED)
+#     data = {
+#         'message': 'logged in',
+#         'token': token,
+#     }
+#     return JsonResponse(data, status=status.HTTP_202_ACCEPTED)
 
 
 
