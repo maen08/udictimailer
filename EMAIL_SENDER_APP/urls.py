@@ -1,10 +1,15 @@
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from main_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('rest_framework.urls')),
     path('', views.sender_view),
-    path('create/', views.create_email_view, name='create')
+    path('get/', views.test_view),
+    path('register/', views.register),
+    path('login/', views.signin),
+    # path('auth/', obtain_auth_token),     # get the token page
+    path('create/', views.create_email_view, name='create'),
 ]
