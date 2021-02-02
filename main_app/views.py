@@ -132,20 +132,25 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(username=username, password=password)
-        login(request, user)
-        user_token = str(Token.objects.get().key)
+        try:
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            user_token = str(Token.objects.get().key)
 
-        args = {
-            'message': 'Successful login',
-            'token':user_token
-        }
-        return JsonResponse(args, status=status.HTTP_201_CREATED)
+            args = {
+                'message': 'Successful login',
+                'token':user_token
+            }
+            return JsonResponse(args, status=status.HTTP_201_CREATED)
+
+        except AttributeError:
+            raise AuthenticationFailed('You dont have an account, please register')
 
     else:
-        raise AuthenticationFailed('Sorry, not logged in')
+        args = {
+            'message': 'You dont have an account, please register',
+            
+        }
+        raise JsonResponse(args, status=status.HTTP_403_FORBIDDEN)
 
-    args = {
-        'message':'Failed to login'
-    }
-    return JsonResponse(args)
+

@@ -10,7 +10,7 @@ urlpatterns = [
     path('', views.sender_view),
     path('get/', views.login_view),
     path('register/', views.register),
-    # path('login/', views.signin),
-    path('auth/', obtain_auth_token),     # get the token page
+    path('test/', views.test_view),
+    path('auth/', obtain_auth_token),    
     path('create/', views.create_email_view, name='create'),
 ]
