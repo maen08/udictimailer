@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('rest_framework.urls')),
     path('', views.sender_view),
-    path('get/', views.test_view),
+    path('get/', views.login_view),
     path('register/', views.register),
     # path('login/', views.signin),
     path('auth/', obtain_auth_token),     # get the token page

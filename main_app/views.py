@@ -9,9 +9,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import AuthenticationFailed
+from django.contrib.auth import authenticate, login
 
 
 
@@ -122,3 +122,30 @@ def test_view(request):
     }
 
     return JsonResponse(data)
+
+
+
+@api_view(['POST'])
+@csrf_exempt
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        user_token = str(Token.objects.get().key)
+
+        args = {
+            'message': 'Successful login',
+            'token':user_token
+        }
+        return JsonResponse(args, status=status.HTTP_201_CREATED)
+
+    else:
+        raise AuthenticationFailed('Sorry, not logged in')
+
+    args = {
+        'message':'Failed to login'
+    }
+    return JsonResponse(args)
