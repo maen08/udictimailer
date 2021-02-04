@@ -18,7 +18,7 @@ from django.contrib.auth import authenticate, login
 
 
 
-
+# works fine
 def sender_view(request):
     if request.method == 'POST':
         subject = request.POST.get('email-subject')
@@ -42,6 +42,8 @@ def sender_view(request):
         print('NOT SENT')
   
     return render(request, template_name='create_email.html')
+
+
 
 
 def create_email_view(request):
@@ -80,40 +82,10 @@ def register(request):
 
 
 
-# works fine
-
-# @csrf_exempt
-# @api_view(['POST'])
-# def signin(request):
-#     username = request.POST['username']
-#     password = request.POST['password']
-
-
-#     if not User.objects.filter(username=username).exists():
-#         raise AuthenticationFailed('Username does not exist, please register')
-    
-#     # try:
-#     user = authenticate(request, username=username, password=password)
-#     login(request, user)
-#         # print('GOOD LOGGER')
-#     token = str(Token.objects.get(user=user).key) 
-#         # print(token)
-
-#     # except Exception:
-#     #     raise AuthenticationFailed('Authentication Failed!')        
- 
-#     data = {
-#         'message': 'logged in',
-#         'token': token,
-#     }
-#     return JsonResponse(data, status=status.HTTP_202_ACCEPTED)
-
-
-
 # test for token auth
 
 @csrf_exempt
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def test_view(request):
 
@@ -134,14 +106,16 @@ def login_view(request):
 
         try:
             user = authenticate(username=username, password=password)
-            login(request, user)
-            user_token = str(Token.objects.get().key)
 
-            args = {
-                'message': 'Successful login',
-                'token':user_token
-            }
-            return JsonResponse(args, status=status.HTTP_201_CREATED)
+            if user in User.objects.all():
+                login(request, user)
+                user_token = str(Token.objects.get().key)
+
+                args = {
+                    'message': 'Successful login',
+                    'token':user_token
+                }
+                return JsonResponse(args, status=status.HTTP_201_CREATED)
 
         except AttributeError:
             raise AuthenticationFailed('You dont have an account, please register')
@@ -152,5 +126,7 @@ def login_view(request):
             
         }
         raise JsonResponse(args, status=status.HTTP_403_FORBIDDEN)
+
+
 
 
