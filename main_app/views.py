@@ -18,20 +18,48 @@ from django.contrib.auth import authenticate, login
 
 
 
+
+# @csrf_exempt
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def create_email_view(request):
+    return render(request, template_name='create_email.html')
+
+
+
+
 # works fine
-def sender_view(request):
+
+@csrf_exempt
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def sender_email_view(request):
     if request.method == 'POST':
-        subject = request.POST.get('email-subject')
-        body = request.POST.get('email-body')
-        receiver = request.POST.get('email-receiver')
+
+        # parsing data
+        subject = request.data.get('email-subject')
+        body = request.data.get('email-body')
+        receiver_email = request.POST.get('email-receiver')
         
         # in future, store these details in DB
+
+        user = User.objects.filter(username=username).first()
+        if user is None:
+            raise AuthenticationFailed('User is not found, please register')
+
+        # else:
+        #     to_email = user.email
+
+        #  continue with this
+
+        to_email = user.email
 
         email = EmailMessage(
             subject,
             body,
             settings.EMAIL_HOST_USER,
-            receiver.split(),
+            to_email,
+            # receiver.split(),
         )
         email.fail_silently = False
         email.send()
@@ -46,12 +74,6 @@ def sender_view(request):
 
 
 
-def create_email_view(request):
-    return render(request, template_name='create_email.html')
-
-
-
-
 
 
 # works fine
@@ -59,9 +81,9 @@ def create_email_view(request):
 @csrf_exempt
 @api_view(['POST'])
 def register(request):
-    email = request.POST['email']
-    username = request.POST['username']
-    password = request.POST['password']
+    email = request.data['email']
+    username = request.data['username']
+    password = request.data['password']
 
 
     if User.objects.filter(username=username).exists():
@@ -98,12 +120,15 @@ def test_view(request):
 
 
 
+
+# up and running
+
 @api_view(['POST'])
 @csrf_exempt
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        username = request.data.get('username')
+        password = request.data.get('password')
 
         try:
 
@@ -119,7 +144,8 @@ def login_view(request):
                 user = authenticate(username=username, password=password)
                 if user in User.objects.all():
                     if not user.check_password(password):
-                        raise AuthenticationFailed('Wrong password!') 
+                        raise AuthenticationFailed('Wrong password!')
+                    
                     login(request, user)
                     user_token = str(Token.objects.create(user=user))
 

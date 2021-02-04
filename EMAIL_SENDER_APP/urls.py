@@ -7,10 +7,13 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('rest_framework.urls')),
-    path('', views.sender_view),
-    path('get/', views.login_view),
-    path('register/', views.register),
+    path('', views.sender_email_view, name='send-email'),
+    path('login/', views.login_view, name='login-view'),
+    path('register/', views.register, name='register-view'),
     path('test/', views.test_view),
-    path('auth/', obtain_auth_token),   
-    path('create/', views.create_email_view, name='create'),
+    path('create/', views.create_email_view, name='create-view'),
+
+
+
+     # path('auth/', obtain_auth_token),   
 ]
