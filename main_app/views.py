@@ -106,20 +106,31 @@ def login_view(request):
         password = request.POST.get('password')
 
         try:
-            user = authenticate(username=username, password=password)
 
-            if user in User.objects.all():
-                login(request, user)
-                user_token = str(Token.objects.get().key)
+            this_user = User.objects.filter(username=username).first()
 
-                args = {
-                    'message': 'Successful login',
-                    'token':user_token
-                }
-                return JsonResponse(args, status=status.HTTP_201_CREATED)
+            if not this_user.check_password(password):
+                raise AuthenticationFailed('Wrong password, please try again')
+
+            elif this_user is None:
+                raise AuthenticationFailed('User is not found, please register')
+
+            else:
+                user = authenticate(username=username, password=password)
+                if user in User.objects.all():
+                    if not user.check_password(password):
+                        raise AuthenticationFailed('Wrong password!') 
+                    login(request, user)
+                    user_token = str(Token.objects.create(user=user))
+
+                    args = {
+                        'message': 'Successful login',
+                        'token':user_token
+                    }
+                    return JsonResponse(args, status=status.HTTP_201_CREATED)
 
         except AttributeError:
-            raise AuthenticationFailed('You dont have an account, please register')
+            raise AuthenticationFailed('User is not found, please register')
 
     else:
         args = {
