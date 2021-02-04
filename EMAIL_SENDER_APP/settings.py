@@ -35,11 +35,13 @@ INSTALLED_APPS = [
     'main_app',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -147,3 +149,18 @@ REST_FRAMEWORK = {
 ]
 
 }
+
+
+# During Development
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
+
+# During Production
+
+# CORS_ORIGIN_ALLOW_ALL = False
+
+# CORS_ORIGIN_WHITELIST = (
+#     'http//:localhost:8000',
+# )
