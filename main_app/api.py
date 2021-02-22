@@ -2,6 +2,11 @@ import requests
 
 '''
 A separate script to test the API. Just incase tools like Postman fails !
+From the root directory, just run: python3 main_app/api.py
+
+
+READ THE DOCUMENTATION FIRST!
+
 
 '''
 
@@ -12,40 +17,45 @@ headers = {'Authorization': 'Token <TOKEN-HERE>'}
 
 r = requests.get(url, headers=headers)
 print(r.status_code)
+print(r.reason)
 print(r.content)
 
 
 
 # POST method - 'register/ endpoint'
+# You get auth-token in login, not here
 
 url = 'http://127.0.0.1:8000/register/'
 headers = {'Authorization': 'Token <TOKEN-HERE>'}
 
 data = {
-    'email': '2001stany@gmail.com, doccasheby@gmail.com',
-    'username': 'send from api',
-    'password': 'hello'
+    'email': 'email1@gmail.com, email2@gmail.com, email3@gmail.com', 
+    'username': 'username-here',
+    'password': 'password-here',
 }
 
 r = requests.post(url, data=data, headers=headers)
 print(r.status_code)
 print(r.reason)
+print(r.content)
 
 
 # POST method - 'login/ endpoint'
+# You get the auth-token after successful login
 
 url = 'http://127.0.0.1:8000/login/'
 headers = {'Authorization': 'Token <TOKEN-HERE>'}
 
 data = {
 
-    'username': 'send from api',
-    'password': 'hello'
+    'username': 'username-here',
+    'password': 'password-here',
 }
 
 r = requests.post(url, data=data, headers=headers)
 print(r.status_code)
 print(r.reason)
+print(r.content)
 
 
 
@@ -56,11 +66,12 @@ url = 'http://127.0.0.1:8000/'
 headers = {'Authorization': 'Token <TOKEN-HERE>'}
 
 data = {
-    'email-receiver': '2001stany@gmail.com, doccasheby@gmail.com',
-    'email-subject': 'send from api',
-    'email-body': 'hello'
+    'email-receiver': 'email1@gmail.com, email2@gmail.com, email3@gmail.com',
+    'email-subject': 'Sent from API',
+    'email-body': 'Hello UdictiMailer',
 }
 
 r = requests.post(url, data=data, headers=headers)
 print(r.status_code)
 print(r.reason)
+print(r.content)

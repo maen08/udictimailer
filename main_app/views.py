@@ -17,22 +17,21 @@ from .serializers import UserSerializer
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.authentication import TokenAuthentication
 
 
 # @csrf_exempt
 # @api_view(['POST'])
 # @permission_classes([IsAuthenticated])
-def create_email_view(request):
-    return render(request, template_name='create_email.html')
+# def create_email_view(request):
+#     return render(request, template_name='create_email.html')
 
 
 # SEND EMAIL ENDPOINT
 
 @csrf_exempt
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def sender_email_view(request):
     if request.method == 'POST':
 
@@ -42,7 +41,7 @@ def sender_email_view(request):
         receiver_email = request.data.get(
             'email-receiver')   # get the emails in list
 
-        # in future, store these details in DB
+        # in future, track everything in  DB
 
         # user = User.objects.filter(username=username).first()
         # if user is None:
@@ -52,7 +51,7 @@ def sender_email_view(request):
             subject,
             body,
             settings.EMAIL_HOST_USER,
-            receiver_email.split(','),         # separate by comma
+            receiver_email.split(','),     # separate by comma
         )
         email.fail_silently = False
         email.send()
@@ -67,6 +66,8 @@ def sender_email_view(request):
     }
     return JsonResponse(data, status=status.HTTP_200_OK)
     # return render(request, template_name='create_email.html')
+
+
 
 
 # REGISTER ENDPOINT
@@ -136,8 +137,7 @@ def login_view(request):
 
                 login(request, user)
                 user_token = str(Token.objects.create(user=user))
-                # user_token = RefreshToken.for_user(user)
-                # print(user_token)
+
 
                 args = {
                     'message': 'Successful login',
