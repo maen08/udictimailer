@@ -52,7 +52,7 @@ def sender_email_view(request):
             subject,
             body,
             settings.EMAIL_HOST_USER,
-            [receiver_email.split(',')],         # separate by comma
+            receiver_email.split(','),         # separate by comma
         )
         email.fail_silently = False
         email.send()
