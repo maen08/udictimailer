@@ -1,7 +1,7 @@
 import requests
 
 url = 'http://127.0.0.1:8000/test/'
-headers = {'Authorization': 'Token faa0f3cead3f8e2e6dcd9e5511f7034297c30632'}
+headers = {'Authorization': 'Token f31ad0ec5a17baa1c419d5ab8d424e5b3a408087'}
 r = requests.get(url, headers=headers)
 print(r.status_code)
 print(r.content)

@@ -16,7 +16,7 @@ urlpatterns = [
     path('register/', views.register, name='register-view'),
     path('test/', views.test_view),
     path('create/', views.create_email_view, name='create-view'),
-    path('new/', views.RegisterUserViewSet.as_view),
+   
    
 
 
