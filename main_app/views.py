@@ -27,6 +27,9 @@ from rest_framework.authentication import TokenAuthentication
 #     return render(request, template_name='create_email.html')
 
 
+
+
+
 # SEND EMAIL ENDPOINT
 
 @csrf_exempt
@@ -70,6 +73,8 @@ def sender_email_view(request):
 
 
 
+
+
 # REGISTER ENDPOINT
 @csrf_exempt
 @api_view(['POST'])
@@ -95,7 +100,9 @@ def register(request):
 
 
 
-# GET TEST VIEW
+
+
+# GET TEST ENDPOINT
 @csrf_exempt
 @api_view(['GET', 'POST'])
 @authentication_classes([TokenAuthentication])
@@ -107,6 +114,10 @@ def test_view(request):
     }
 
     return JsonResponse(data)
+
+
+
+
 
 
 # LOGIN ENDPOINT
