@@ -8,7 +8,7 @@ API that helps to send the multiple emails (currently, used only for UDICTI offi
 
 
 ### INTRODUCTION
-
+---
 - #### Allowed HTTP requests:
 
   - GET - Get the list of resource
@@ -24,7 +24,6 @@ API that helps to send the multiple emails (currently, used only for UDICTI offi
   - `403 Forbidden` - access denied.
   - `404 Not Found` - resource was not found.
 
-
 ### ENDPOINTS
 
 Endpoint | HTTP Method | Parameter | Description
@@ -37,6 +36,7 @@ Endpoint | HTTP Method | Parameter | Description
 
 
 ### DATA TYPES OF PARAMETERS
+---
 - email `(String)` : Unique email per user
 -  username `(String)` : Unique username per user
 -   password `(String)` : Adviced to be strong password
@@ -46,22 +46,46 @@ Endpoint | HTTP Method | Parameter | Description
 
 
 
-
-
 ### ENDPOINT TESTS
-You can test the endpoints and HTTP requests using any tool (Postman, being so common) that you're comfortable with. This documentation uses `requests` to perform some of the methods, just to give an example.
+---
+You can test the endpoints and HTTP requests using any tool (Postman, being so common) that you're comfortable with. This documentation uses `requests` (a Python package) to perform some of the methods, just to give an example.
+
+Feel free to use any language with any technology during testing.
+
+##### Registration endpoint (register/)
 
 ```sh
-$ cd dillinger
-$ npm install -d
-$ node app
+url = 'http://127.0.0.1:8000/register/'
+
+data = {
+    'email': 'email@gmail.com', 
+    'username': 'username-here',
+    'password': 'password-here',
+}
+
+r = requests.post(url, data=data)
+print(r.status_code)
+print(r.reason)
+print(r.content)
 ```
 
-For production environments...
+
+##### Login endpoint (login/)
 
 ```sh
-$ npm install --production
-$ NODE_ENV=production node app
+url = 'http://127.0.0.1:8000/login/'
+headers = {'Authorization': 'Token <TOKEN-HERE>'}
+
+data = {
+
+    'username': 'username-here',
+    'password': 'password-here',
+}
+
+r = requests.post(url, data=data, headers=headers)
+print(r.status_code)
+print(r.reason)
+print(r.content)
 ```
 
 

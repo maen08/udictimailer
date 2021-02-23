@@ -26,15 +26,15 @@ print(r.content)
 # You get auth-token in login, not here
 
 url = 'http://127.0.0.1:8000/register/'
-headers = {'Authorization': 'Token <TOKEN-HERE>'}
+
 
 data = {
-    'email': 'email1@gmail.com, email2@gmail.com, email3@gmail.com', 
+    'email': 'email@gmail.com', 
     'username': 'username-here',
     'password': 'password-here',
 }
 
-r = requests.post(url, data=data, headers=headers)
+r = requests.post(url, data=data)
 print(r.status_code)
 print(r.reason)
 print(r.content)
