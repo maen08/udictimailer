@@ -60,6 +60,8 @@ Feel free to use any language with any technology during testing.
 ##### Registration endpoint (register/)
 
 ```sh
+import requests
+
 url = 'http://127.0.0.1:8000/register/'
 
 data = {
@@ -78,6 +80,8 @@ print(r.content)
 ##### Login endpoint (login/)
 
 ```sh
+import requests
+
 url = 'http://127.0.0.1:8000/login/'
 
 data = {
@@ -97,6 +101,8 @@ print(r.content)
 
 ##### Send email endpoint (/)
 ```sh
+import requests
+
 url = 'http://127.0.0.1:8000/'
 headers = {'Authorization': 'Token <TOKEN-HERE>'}
 
