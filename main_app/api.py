@@ -44,7 +44,6 @@ print(r.content)
 # You get the auth-token after successful login
 
 url = 'http://127.0.0.1:8000/login/'
-headers = {'Authorization': 'Token <TOKEN-HERE>'}
 
 data = {
 
@@ -52,7 +51,7 @@ data = {
     'password': 'password-here',
 }
 
-r = requests.post(url, data=data, headers=headers)
+r = requests.post(url, data=data)
 print(r.status_code)
 print(r.reason)
 print(r.content)

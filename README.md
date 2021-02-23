@@ -24,6 +24,9 @@ API that helps to send the multiple emails (currently, used only for UDICTI offi
   - `403 Forbidden` - access denied.
   - `404 Not Found` - resource was not found.
 
+##
+##
+
 ### ENDPOINTS
 
 Endpoint | HTTP Method | Parameter | Description
@@ -33,7 +36,8 @@ Endpoint | HTTP Method | Parameter | Description
 | test/ |GET | NULL | This is the endpoint just to test your `token` and all setup if everything works fine. You must get `200 OK` response
 | / | GET | `email-subject`, `email-body`, `email-receiver` | The endpoint that sends email. Pass the parameters required and the `token` to send emails.
 
-
+##
+##
 
 ### DATA TYPES OF PARAMETERS
 ---
@@ -44,7 +48,8 @@ Endpoint | HTTP Method | Parameter | Description
 -   email-body `(String)`: The body itself
 -   email-receiver `(String)`: Receiver's emails. May be multiple emails separated by a comma (,)
 
-
+##
+##
 
 ### ENDPOINT TESTS
 ---
@@ -74,7 +79,6 @@ print(r.content)
 
 ```sh
 url = 'http://127.0.0.1:8000/login/'
-headers = {'Authorization': 'Token <TOKEN-HERE>'}
 
 data = {
 
@@ -82,69 +86,36 @@ data = {
     'password': 'password-here',
 }
 
+r = requests.post(url, data=data)
+print(r.status_code)
+print(r.reason)
+print(r.content)
+
+# At this endpoint, you obtain token
+```
+
+
+##### Send email endpoint (/)
+```sh
+url = 'http://127.0.0.1:8000/'
+headers = {'Authorization': 'Token <TOKEN-HERE>'}
+
+data = {
+    'email-receiver': 'email1@gmail.com, email2@gmail.com, email3@gmail.com',
+    'email-subject': 'Sent from API',
+    'email-body': 'Hello UdictiMailer',
+}
+
 r = requests.post(url, data=data, headers=headers)
 print(r.status_code)
 print(r.reason)
 print(r.content)
 ```
-
-
-
-### Development
-
-Want to contribute? Great!
-
-Dillinger uses Gulp + Webpack for fast developing.
-Make a change in your file and instantaneously see your updates!
-
-Open your favorite Terminal and run these commands.
-
-First Tab:
-```sh
-$ node app
-```
-
-Second Tab:
-```sh
-$ gulp watch
-```
-
-(optional) Third:
-```sh
-$ karma test
-```
-#### Building for source
-For production release:
-```sh
-$ gulp build --prod
-```
-Generating pre-built zip archives for distribution:
-```sh
-$ gulp build dist --prod
-```
-### Docker
-Dillinger is very easy to install and deploy in a Docker container.
-
-By default, the Docker will expose port 8080, so change this within the Dockerfile if necessary. When ready, simply use the Dockerfile to build the image.
-
-```sh
-cd dillinger
-docker build -t joemccann/dillinger:${package.json.version} .
-```
-This will create the dillinger image and pull in the necessary dependencies. Be sure to swap out `${package.json.version}` with the actual version of Dillinger.
-
-Once done, run the Docker image and map the port to whatever you wish on your host. In this example, we simply map port 8000 of the host to port 8080 of the Docker (or whatever port was exposed in the Dockerfile):
-
-```sh
-docker run -d -p 8000:8080 --restart="always" <youruser>/dillinger:${package.json.version}
-```
-
-Verify the deployment by navigating to your server address in your preferred browser.
-
-```sh
-127.0.0.1:8000
-```
-
+### Technologies
+- Django
+- Django Rest Framework
+- [Djangoroku](https://pypi.org/project/djangoroku/)
+- Heroku
 
 
 ### Todos
