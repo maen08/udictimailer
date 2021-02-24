@@ -152,7 +152,7 @@ def login_view(request):
 
                 args = {
                     'message': 'Successful login',
-                    'refresh token': user_token,
+                    'auth token': user_token,
                    
                 }
                 return JsonResponse(args, status=status.HTTP_201_CREATED)

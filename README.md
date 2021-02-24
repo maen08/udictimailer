@@ -34,7 +34,7 @@ Endpoint | HTTP Method | Parameter | Description
 | register/ | POST | `email`, `username`, `password` | Endpoint to register user. All parameters are required. Make sure you are using the same names even if in DOM (HTML elements eg. name="email")
 | login/ | POST | `username`, `password` | Pass the same username and password which used to register a particular user. Any other different parameter will result an error. Successful logged in user will obtain `token`
 | test/ |GET | NULL | This is the endpoint just to test your `token` and all setup if everything works fine. You must get `200 OK` response
-| / | POST | `email-subject`, `email-body`, `email-receiver` | The endpoint that sends email. Pass the parameters required and the `token` to send emails.
+| send/ | POST | `email-subject`, `email-body`, `email-receiver` | The endpoint that sends email. Pass the parameters required and the `token` to send emails.
 
 ##
 ##
