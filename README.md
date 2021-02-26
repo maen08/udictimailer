@@ -99,7 +99,7 @@ print(r.content)
 ```
 
 
-##### Send email endpoint (/)
+##### Send email endpoint (send/)
 ```sh
 import requests
 
