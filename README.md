@@ -103,7 +103,7 @@ print(r.content)
 ```sh
 import requests
 
-url = 'http://127.0.0.1:8000/'
+url = 'http://127.0.0.1:8000/send/'
 headers = {'Authorization': 'Token <TOKEN-HERE>'}
 
 data = {
