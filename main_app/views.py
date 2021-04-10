@@ -65,7 +65,9 @@ def sender_email_view(request):
         print('NOT SENT')
 
     data = {
-        'message': 'Message sent!'
+        'message': 'Email sent!',
+        'status': status.HTTP_200_OK,
+
     }
     return JsonResponse(data, status=status.HTTP_200_OK)
     # return render(request, template_name='create_email.html')
@@ -93,7 +95,8 @@ def register(request):
 
     data = {
         'username': username,
-        'message': 'Success registered, login to get the API Token'
+        'message': 'Success registered, login to get the API Token',
+        'status': status.HTTP_201_CREATED,
     }
     return JsonResponse(data, status=status.HTTP_201_CREATED)
 
@@ -151,11 +154,12 @@ def login_view(request):
 
 
                 args = {
-                    'message': 'Successful login',
-                    'auth token': user_token,
+                    'message': 'Successful login. Wait for 2 min before starting sending emails. We\'re configuring your email!',
+                    'token': user_token,
+                    'status':status.HTTP_200_OK,
                    
                 }
-                return JsonResponse(args, status=status.HTTP_201_CREATED)
+                return JsonResponse(args, status=status.HTTP_200_OK)
 
         except AttributeError:
             raise AuthenticationFailed('User is not found, please register')
@@ -163,6 +167,7 @@ def login_view(request):
     else:
         args = {
             'message': 'You dont have an account, please register',
+            'status':status.HTTP_403_FORBIDDEN
 
         }
         raise JsonResponse(args, status=status.HTTP_403_FORBIDDEN)
