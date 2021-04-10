@@ -167,7 +167,7 @@ def login_view(request):
     else:
         args = {
             'message': 'You dont have an account, please register',
-            'status':status.HTTP_403_FORBIDDEN
+            'status':status.HTTP_403_FORBIDDEN,
 
         }
         raise JsonResponse(args, status=status.HTTP_403_FORBIDDEN)
