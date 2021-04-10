@@ -171,3 +171,10 @@ def login_view(request):
 
         }
         raise JsonResponse(args, status=status.HTTP_403_FORBIDDEN)
+
+
+'''     
+TO-DO:
+awaits the dev, 2 min will be enough. after login
+
+'''
