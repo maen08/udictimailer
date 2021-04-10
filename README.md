@@ -62,7 +62,7 @@ Feel free to use any language with any technology during testing.
 ```sh
 import requests
 
-url = 'http://127.0.0.1:8000/register/'
+url = 'http://udictimailer.herokuapp.com/register/'
 
 data = {
     'email': 'email@gmail.com', 
@@ -82,7 +82,7 @@ print(r.content)
 ```sh
 import requests
 
-url = 'http://127.0.0.1:8000/login/'
+url = 'http://udictimailer.herokuapp.com/login/'
 
 data = {
 
@@ -103,7 +103,7 @@ print(r.content)
 ```sh
 import requests
 
-url = 'http://127.0.0.1:8000/send/'
+url = 'http://udictimailer.herokuapp.com/send/'
 headers = {'Authorization': 'Token <TOKEN-HERE>'}
 
 data = {
