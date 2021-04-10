@@ -9,9 +9,9 @@ import django_heroku
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
-SECRET_KEY='53g7v+vt=-1jf5v3x@3o^p@cisx69e9lv52d$6*qglcbb7x8ej'
+
 
 
 DEBUG = True
@@ -127,12 +127,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'udictii@gmail.com'  # add to env. variable
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
-EMAIL_HOST_PASSWORD = 'forojqzntvstmazh'
 
 
 
