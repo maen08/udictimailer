@@ -154,7 +154,7 @@ def login_view(request):
 
 
                 args = {
-                    'message': 'Successful login. Wait for 2 min before starting sending emails. We\'re configuring your email!',
+                    'message': 'Successful login!',
                     'token': user_token,
                     'status':status.HTTP_200_OK,
                    
