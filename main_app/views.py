@@ -18,6 +18,7 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from django.template.loader import get_template
 
 
 # @csrf_exempt
@@ -44,11 +45,10 @@ def sender_email_view(request):
         receiver_email = request.data.get(
             'email-receiver')   # get the emails in list
 
-        # in future, track everything in  DB
-
-        # user = User.objects.filter(username=username).first()
-        # if user is None:
-        #     raise AuthenticationFailed('User is not found, please register')
+        template = get_template('email.html')
+        content = template.render(
+            {'body': body}
+        )
 
         email = EmailMessage(
             subject,
