@@ -21,14 +21,6 @@ from rest_framework.authentication import TokenAuthentication
 from django.template.loader import get_template
 
 
-# @csrf_exempt
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def create_email_view(request):
-#     return render(request, template_name='create_email.html')
-
-
-
 
 
 # SEND EMAIL ENDPOINT
@@ -59,7 +51,7 @@ def sender_email_view(request):
         email.fail_silently = False
         email.send()
         messages.success(request, 'Email sent Successfully')
-        print('EMAIL GOT SENT')
+        
 
     else:
         print('NOT SENT')
@@ -70,7 +62,7 @@ def sender_email_view(request):
 
     }
     return JsonResponse(data, status=status.HTTP_200_OK)
-    # return render(request, template_name='create_email.html')
+   
 
 
 
@@ -173,8 +165,3 @@ def login_view(request):
         raise JsonResponse(args, status=status.HTTP_403_FORBIDDEN)
 
 
-'''     
-TO-DO:
-awaits the dev, 2 min will be enough. after login
-
-'''
