@@ -29,33 +29,30 @@ from django.template.loader import get_template
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def sender_email_view(request):
-    if request.method == 'POST':
 
-        # parsing data
-        subject = request.data.get('email-subject')
-        body = request.data.get('email-body')
-        receiver_email = request.data.get(
-            'email-receiver')   # get the emails in list
+    subject = request.data.get('email-subject')
+    body = request.data.get('email-body')
+    receiver_email = request.data.get('email-receiver') 
+             
 
-        template = get_template('email.html')
-        content = template.render(
-            {'body': body}
-        )
 
-        email = EmailMessage(
+    body = get_template('email.html')
+    content = body.render({'body':body})
+
+    email = EmailMessage(
             subject,
-            body,
-            settings.EMAIL_HOST_USER,
-            receiver_email.split(','),     # separate by comma
+            body=content,
+            from_email='',
+            to= receiver_email.split(','),  
+            # settings.EMAIL_HOST_USER,
+              # separate by comma
         )
-        email.fail_silently = False
-        email.send()
-        messages.success(request, 'Email sent Successfully')
-        
+    email.fail_silently = False
+    email.content_subtype='html'
+    email.send()
 
-    else:
-        print('NOT SENT')
 
+       
     data = {
         'message': 'Email sent!',
         'status': status.HTTP_200_OK,
