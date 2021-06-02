@@ -51,7 +51,7 @@ def sender_email_view(request):
     email.content_subtype='html'
     email.send()
 
-
+    
        
     data = {
         'message': 'Email sent!',
