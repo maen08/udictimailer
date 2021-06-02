@@ -36,8 +36,8 @@ def sender_email_view(request):
              
 
 
-    body = get_template('email.html')
-    content = body.render({'body':body})
+    template = get_template('email.html')
+    content = template.render({'body':body})
 
     email = EmailMessage(
             subject,
