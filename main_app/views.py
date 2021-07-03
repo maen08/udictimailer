@@ -21,8 +21,6 @@ from rest_framework.authentication import TokenAuthentication
 from django.template.loader import get_template
 
 
-
-
 # SEND EMAIL ENDPOINT
 
 @csrf_exempt
@@ -32,38 +30,29 @@ def sender_email_view(request):
 
     subject = request.data.get('email-subject')
     body = request.data.get('email-body')
-    receiver_email = request.data.get('email-receiver') 
-             
-
+    receiver_email = request.data.get('email-receiver')
 
     template = get_template('email.html')
-    content = template.render({'body':body})
+    content = template.render({'body': body})
 
     email = EmailMessage(
-            subject,
-            body=content,
-            from_email='',
-            to= receiver_email.split(','),  
-            # settings.EMAIL_HOST_USER,
-              # separate by comma
-        )
+        subject,
+        body=content,
+        from_email='',
+        to=receiver_email.split(','),
+        # settings.EMAIL_HOST_USER,
+        # separate by comma
+    )
     email.fail_silently = False
-    email.content_subtype='html'
+    email.content_subtype = 'html'
     email.send()
 
-    
-       
     data = {
         'message': 'Email sent!',
         'status': status.HTTP_200_OK,
 
     }
     return JsonResponse(data, status=status.HTTP_200_OK)
-   
-
-
-
-
 
 
 # REGISTER ENDPOINT
@@ -90,10 +79,6 @@ def register(request):
     return JsonResponse(data, status=status.HTTP_201_CREATED)
 
 
-
-
-
-
 # GET TEST ENDPOINT
 @csrf_exempt
 @api_view(['GET', 'POST'])
@@ -106,10 +91,6 @@ def test_view(request):
     }
 
     return JsonResponse(data)
-
-
-
-
 
 
 # LOGIN ENDPOINT
@@ -141,12 +122,11 @@ def login_view(request):
                 login(request, user)
                 user_token = str(Token.objects.create(user=user))
 
-
                 args = {
                     'message': 'Successful login!',
                     'token': user_token,
-                    'status':status.HTTP_200_OK,
-                   
+                    'status': status.HTTP_200_OK,
+
                 }
                 return JsonResponse(args, status=status.HTTP_200_OK)
 
@@ -156,9 +136,7 @@ def login_view(request):
     else:
         args = {
             'message': 'You dont have an account, please register',
-            'status':status.HTTP_403_FORBIDDEN,
+            'status': status.HTTP_403_FORBIDDEN,
 
         }
         raise JsonResponse(args, status=status.HTTP_403_FORBIDDEN)
-
-
