@@ -5,8 +5,8 @@ from main_app import views
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.authtoken.views import obtain_auth_token
-
-
+from des import urls as des_urls
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,6 +15,9 @@ urlpatterns = [
     path('login/', views.login_view, name='login-view'),
     path('register/', views.register, name='register-view'),
     path('', views.test_view),
+
+    url(r'^django-des/', include(des_urls)),
+
     # path('create/', views.create_email_view, name='create-view'),
    
    
